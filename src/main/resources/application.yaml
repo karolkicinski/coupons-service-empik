@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: coupon-service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+integrations:
+  geo:
+    provider-url: "http://ip-api.com"
