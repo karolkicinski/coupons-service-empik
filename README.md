@@ -30,22 +30,22 @@ Poniżej podział:
 
 Wykorzystałem następujące technologie:
 
-- Java 17 
-- Spring Boot
-- Spring Web MVC
-- Spring Data JPA
-- H2 Database -> baza danych
-- OpenFeign -> komunikacja z zewnętrznym serwisem geolokalizacji
-- Springdoc OpenAPI / Swagger -> dokumentacja API
-- Hazelcast -> cache
-- MapStruct -> mappery
-- JUnit 5 -> testy jednostkowe
-- Mockito -> testy jednostkowe, integracyjne
-- MockMvc -> testy integracyjne
-- WireMock -> testy kontraktowe
-- Spotless -> automatyczne formatowanie kodu, wykorzystałem konwencję googleJavaFormat
-- Liquibase -> zarządzanie schematem bazy danych i migracjami
-- Spring Boot Actuator -> podstawowe endpointy techniczne do monitorowania stanu aplikacji, metryk i diagnostyki
+- Java 17,
+- Spring Boot,
+- Spring Web MVC,
+- Spring Data JPA,
+- H2 Database -> baza danych,
+- OpenFeign -> komunikacja z zewnętrznym serwisem geolokalizacji,
+- Springdoc OpenAPI / Swagger -> dokumentacja API,
+- Hazelcast -> cache,
+- MapStruct -> mappery,
+- JUnit 5 -> testy jednostkowe,
+- Mockito -> testy jednostkowe, integracyjne,
+- MockMvc -> testy integracyjne,
+- WireMock -> testy kontraktowe,
+- Spotless -> automatyczne formatowanie kodu, wykorzystałem konwencję googleJavaFormat,
+- Liquibase -> zarządzanie schematem bazy danych i migracjami,
+- Spring Boot Actuator -> podstawowe endpointy techniczne do monitorowania stanu aplikacji, metryk i diagnostyki.
 
 
 
@@ -56,9 +56,9 @@ Zgodnie z przesłaną treścią zadania zostały dodane (między innymi) następ
 
 1. Tworzenie kuponów z:
     - unikalnym kodem,
-    - datą utworzenia
+    - datą utworzenia,
     - maksymalną liczbą użyć,
-    - bieżącą liczbą użyć
+    - bieżącą liczbą użyć,
     - kodem kraju, w którym kupon może zostać użyty.
    
 2. Kupon jest unikalny - jest to sprawdzane w momencie dodawania nowego kuponu (walidacja), następnie kupon jest
