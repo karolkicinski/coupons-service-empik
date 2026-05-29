@@ -1,0 +1,11 @@
+services:
+  coupons-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: coupons-service
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: default
+    restart: unless-stopped

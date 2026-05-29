@@ -1,0 +1,110 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-coupons-table
+      author: coupons-service
+      changes:
+        - createTable:
+            tableName: coupons
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_coupons
+                    nullable: false
+              - column:
+                  name: code
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uq_coupon_code
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: max_usages
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: current_usages
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: country_code
+                  type: VARCHAR(2)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 002-create-coupon-usages-table
+      author: coupons-service
+      changes:
+        - createTable:
+            tableName: coupon_usages
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_coupon_usages
+                    nullable: false
+              - column:
+                  name: coupon_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: used_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ip_address
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: country_code
+                  type: VARCHAR(2)
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: coupon_usages
+            baseColumnNames: coupon_id
+            constraintName: fk_coupon_usages_coupon
+            referencedTableName: coupons
+            referencedColumnNames: id
+
+        - addUniqueConstraint:
+            tableName: coupon_usages
+            columnNames: coupon_id, user_id
+            constraintName: uq_coupon_user_usage
+
+        - createIndex:
+            tableName: coupon_usages
+            indexName: idx_coupon_usages_coupon_id
+            columns:
+              - column:
+                  name: coupon_id
+
+        - createIndex:
+            tableName: coupon_usages
+            indexName: idx_coupon_usages_user_id
+            columns:
+              - column:
+                  name: user_id

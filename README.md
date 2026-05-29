@@ -44,6 +44,10 @@ Wykorzystałem następujące technologie:
 - MockMvc -> testy integracyjne
 - WireMock -> testy kontraktowe
 - Spotless -> automatyczne formatowanie kodu, wykorzystałem konwencję googleJavaFormat
+- Liquibase -> zarządzanie schematem bazy danych i migracjami
+- Spring Boot Actuator -> podstawowe endpointy techniczne do monitorowania stanu aplikacji, metryk i diagnostyki
+
+
 
 ## Funkcjonalności
 
@@ -66,7 +70,7 @@ przy zmianie liter na upperCase konwertuje je neutralnie językowo.
 nie jest zabezpieczony wyłącznie przez @Transactional (to zapewnia atomowość całej operacji), natomiast główna ochrona 
 przed nadpisaniem (i nie tylko) opiera się na atomowej aktualizacji w bazie danych (czyli dodane @Query w CouponRepository).
 To baza danych pełni rolę źródła prawdy i nawet przy wielu równoległych requestach/instancjach serwisu
-licznik użyć nie przekroczy wartości max_usages.
+licznik użyć nie przekroczy wartości max_usages. 
 
 4. "Kraj zdefiniowany w kuponie ogranicza użycie kuponu tylko do osób z danego kraju (na podstawie adresu IP – 
 można wykorzystać dowolną darmową usługę do tego)." - tutaj wykorzystałem serwis "http://ip-api.com". Dodatkowo,
@@ -94,7 +98,8 @@ na jednej bazie danych. Tak jak wspominałem to baza danych jest źródłem praw
 Tutaj może pojawić się pytanie - co się stanie jeśli dwie instancje serwisu będą chciały zapisać encję CouponUsage 
 a następnie inkrementować wskaźnik użyć. Tutaj zadziałają dwa zabezpieczenia. W transakcji być może uda się zapisać
 encje ale tylko jeden z serwisów będzie w stanie inkrementować wskaźnik - dla drugiego zostanie zwrócony 
-updateRows = 0, a wiec transakcja sie wycofa - kilka zabezpieczeń! 
+updateRows = 0, a wiec transakcja sie wycofa - kilka zabezpieczeń! Dodatkowo dzięki sygnaturze UniqueConstraint
+(najczęściej) mamy zapewnione po stronie bazy danych indeksy, więc zapewnia to wydajne wyszukiwanie.
 
 8. Dodatkowo dodałem do projektu również definicje swaggerowe oraz endpoint w celu przetestowania oraz 
 podejrzenia dokumentacji (dostępny na: http://localhost:8080/swagger-ui/index.html).
@@ -257,3 +262,7 @@ Wymagania:
 Uruchomienie aplikacji:
 
 bash ./mvnw spring-boot:run
+
+lub 
+
+docker compose up --build
