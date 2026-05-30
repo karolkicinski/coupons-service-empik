@@ -79,7 +79,9 @@ takie IP w ostatnim czasie i znamy państwo) to nie musimy ponownie wysyłać za
 Można również założyć dla takiej funkcjonalności dodatkową tabelę w bazie danych i to tam przetrzymywać adresy,
 które odpytywały nasz serwis wraz z państwem - dobry pomysł na rozwój. Dodatkowo został wykorzystany interfejs,
 więc dostawca może zostać łatwo zmieniony. Do komunikacji z zewnętrznym serwisem wykorzystałem nowoczesne podejście
-FeignClient.
+FeignClient. Dodatkowym atutem Hazelcast jest możliwość pracy w klastrze - dzięki temu cache może być współdzielony 
+pomiędzy wieloma instancjami serwisu, co jeszcze bardziej ogranicza liczbę zapytań do zewnętrznego providera 
+geolokalizacji i poprawia wydajność całego rozwiązania.
 
 5. "Gdy kupon osiągnął maksymalną liczbę zużyć, próby użycia go powinny zwracać stosowną informację
 w zwrotce. Tak samo, gdy podany kod kuponu nie istnieje, próba zużycia przychodzi z
