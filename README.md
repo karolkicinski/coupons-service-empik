@@ -266,3 +266,36 @@ bash ./mvnw spring-boot:run
 lub 
 
 docker compose up --build
+
+
+## Potencjalne rozszerzenia
+
+W obecnej wersji aplikacja posiada jeden serwis odpowiedzialny za obsługę kuponów. 
+Przy większej skali pojawiłoby się więcej mikroserwisów realizujących osobne fragmenty logiki biznesowej, 
+można byłoby rozważyć rozbudowę architektury o dodatkowe elementy infrastrukturalne.
+
+### Rozszerzenia w ekosystemie Spring Cloud - przykład
+
+- Service Registry, np. Eureka - przy większej liczbie mikroserwisów można wykorzystać rejestr usług, 
+do którego każda instancja serwisu sama się rejestruje oraz ułatwiona jest komunikacja (tylko po nazwie usługi). 
+
+- Spring Cloud Config - konfigurację aplikacji można przenieść do zewnętrznego repozytorium, np. Git. 
+Ułatwia to zarządzanie konfiguracją wielu serwisów z jednego miejsca i osobno dla różnych środowisk: tst, uat, preprod, prod.
+
+- Spring Cloud Bus - można dynamicznie odświeżać konfigurację w wielu instancjach aplikacji (tj. bez restartu 
+i z wykorzystaniem brokera wiadomości np. kafka lub rabbitmq).
+
+- Load balancing - równoważenie ruchu. W przypadku błędu lub przeciążenia wykorzystywane są inne instancje serwisu. 
+
+- API Gateway - fasada oraz routing do całego systemu, możliwość wprowadzenia autoryzacji na tym poziomie.
+
+### Alternatywnie: Kubernetes
+
+Podobne potrzeby można zrealizować również na poziomie Kubernetes:
+
+- Service discovery - dostępne przez Kubernetes Services i DNS. 
+- Load balancing - realizowany również przez Kubernetes Service.
+- Konfiguracja może być zarządzana przez ConfigMap oraz Secret albo np. Key Vault dla Azure. 
+- Skalowanie można realizować przez zwiększanie liczby replik (--replicas x), a automatycznie przez HPA, vertical, VPA, 
+etc. w zależności od potrzeb.
+- Rolling update pozwala wdrażać nowe wersje aplikacji bez zatrzymywania całego systemu.
