@@ -1,6 +1,7 @@
-package com.empik.coupons.integration.geolocalisation;
+package com.empik.coupons.integration.geolocalisation.impl;
 
 import com.empik.coupons.exception.CountryResolutionException;
+import com.empik.coupons.integration.geolocalisation.GeolocalisationResolver;
 import com.empik.coupons.integration.geolocalisation.feign.IpApiGeolocalisationFeignClient;
 import com.empik.coupons.integration.geolocalisation.model.IpApiGeolocalisationResponse;
 import feign.FeignException;

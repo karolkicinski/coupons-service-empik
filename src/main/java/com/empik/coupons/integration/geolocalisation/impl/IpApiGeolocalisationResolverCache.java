@@ -1,5 +1,6 @@
-package com.empik.coupons.integration.geolocalisation;
+package com.empik.coupons.integration.geolocalisation.impl;
 
+import com.empik.coupons.integration.geolocalisation.GeolocalisationResolver;
 import com.hazelcast.map.IMap;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;

@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import com.empik.coupons.exception.CountryResolutionException;
 import com.empik.coupons.integration.geolocalisation.feign.IpApiGeolocalisationFeignClient;
+import com.empik.coupons.integration.geolocalisation.impl.IpApiGeolocalisationResolver;
 import com.empik.coupons.integration.geolocalisation.model.IpApiGeolocalisationResponse;
 import feign.FeignException;
 import feign.Request;

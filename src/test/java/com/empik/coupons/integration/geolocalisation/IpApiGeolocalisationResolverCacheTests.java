@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.empik.coupons.exception.CountryResolutionException;
+import com.empik.coupons.integration.geolocalisation.impl.IpApiGeolocalisationResolverCache;
 import com.hazelcast.map.IMap;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
