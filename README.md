@@ -272,24 +272,18 @@ docker compose up --build
 
 W obecnej wersji aplikacja posiada jeden serwis odpowiedzialny za obsługę kuponów. 
 Przy większej skali pojawiłoby się więcej mikroserwisów realizujących osobne fragmenty logiki biznesowej, 
-można byłoby rozważyć rozbudowę architektury o dodatkowe elementy infrastrukturalne.
+można byłoby rozważyć rozbudowę architektury o dodatkowe elementy.
 
-### Rozszerzenia w ekosystemie Spring Cloud - przykład
+Tradycyjne podejście (najczęściej on premise) oparte na Spring Cloud:
 
 - Service Registry, np. Eureka - przy większej liczbie mikroserwisów można wykorzystać rejestr usług, 
 do którego każda instancja serwisu sama się rejestruje oraz ułatwiona jest komunikacja (tylko po nazwie usługi). 
-
 - Spring Cloud Config - konfigurację aplikacji można przenieść do zewnętrznego repozytorium, np. Git. 
 Ułatwia to zarządzanie konfiguracją wielu serwisów z jednego miejsca i osobno dla różnych środowisk: tst, uat, preprod, prod.
-
 - Spring Cloud Bus - można dynamicznie odświeżać konfigurację w wielu instancjach aplikacji (tj. bez restartu 
 i z wykorzystaniem brokera wiadomości np. kafka lub rabbitmq).
-
 - Load balancing - równoważenie ruchu. W przypadku błędu lub przeciążenia wykorzystywane są inne instancje serwisu. 
-
 - API Gateway - fasada oraz routing do całego systemu, możliwość wprowadzenia autoryzacji na tym poziomie.
-
-### Alternatywnie: Kubernetes
 
 Podobne potrzeby można zrealizować również na poziomie Kubernetes:
 
