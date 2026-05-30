@@ -1,0 +1,211 @@
+openapi: 3.1.0
+info:
+  title: Coupons API
+  description: |
+    REST API for managing and applying coupons.
+
+    Main features:
+    - create coupons
+    - apply coupons by user and IP-based country validation
+    - inspect coupons and coupon usages for testing purposes
+  version: v1
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+tags:
+- name: Coupons
+  description: "Operations for creating, applying and inspecting coupons"
+paths:
+  /api/coupons:
+    get:
+      tags:
+      - Coupons
+      summary: Get all coupons
+      description: Returns all coupons. Endpoint intended mainly for testing purposes.
+      operationId: getAllCoupons
+      responses:
+        "502":
+          description: Bad Gateway
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CreateCouponResponse"
+    post:
+      tags:
+      - Coupons
+      summary: Create coupon
+      description: Creates a new coupon with usage limit and country restriction.
+      operationId: createCoupon
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCouponRequest"
+        required: true
+      responses:
+        "502":
+          description: Bad Gateway
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "201":
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CreateCouponResponse"
+  /api/coupons/apply:
+    post:
+      tags:
+      - Coupons
+      summary: Apply coupon
+      description: Applies coupon for a user. The request IP address is used to resolve
+        country and validate coupon availability.
+      operationId: applyCoupon
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApplyCouponRequest"
+        required: true
+      responses:
+        "502":
+          description: Bad Gateway
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ApplyCouponResponse"
+  /api/coupons/usages:
+    get:
+      tags:
+      - Coupons
+      summary: Get all coupon usages
+      description: Returns all coupon usage records. Endpoint intended mainly for
+        testing purposes.
+      operationId: getAllCouponsUsages
+      responses:
+        "502":
+          description: Bad Gateway
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CouponUsageResponse"
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties:
+            type: string
+    CreateCouponRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          maxLength: 128
+          minLength: 0
+        maxUsages:
+          type: integer
+          format: int32
+          minimum: 1
+        countryCode:
+          type: string
+          minLength: 1
+          pattern: "^[A-Za-z]{2}$"
+      required:
+      - code
+      - countryCode
+    CreateCouponResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        code:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        maxUsages:
+          type: integer
+          format: int32
+        currentUsages:
+          type: integer
+          format: int32
+        countryCode:
+          type: string
+    ApplyCouponRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          maxLength: 128
+          minLength: 0
+        userId:
+          type: integer
+          format: int64
+      required:
+      - code
+      - userId
+    ApplyCouponResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        code:
+          type: string
+        message:
+          type: string
+    CouponUsageResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        couponId:
+          type: integer
+          format: int64
+        couponCode:
+          type: string
+        userId:
+          type: integer
+          format: int64
+        usedAt:
+          type: string
+          format: date-time
+        ipAddress:
+          type: string
+        countryCode:
+          type: string

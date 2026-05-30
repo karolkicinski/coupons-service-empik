@@ -102,7 +102,8 @@ updateRows = 0, a wiec transakcja sie wycofa - kilka zabezpieczeń! Dodatkowo dz
 (najczęściej) mamy zapewnione po stronie bazy danych indeksy, więc zapewnia to wydajne wyszukiwanie.
 
 8. Dodatkowo dodałem do projektu również definicje swaggerowe oraz endpoint w celu przetestowania oraz 
-podejrzenia dokumentacji (dostępny na: http://localhost:8080/swagger-ui/index.html).
+podejrzenia dokumentacji (dostępny na: http://localhost:8080/swagger-ui/index.html). Dokumentacja jest dostępne
+również w katalogu /docs/api-docs.yaml.
 
    
 
