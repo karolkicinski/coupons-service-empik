@@ -279,7 +279,7 @@ można byłoby rozważyć rozbudowę architektury o dodatkowe elementy.
 
 Tradycyjne podejście (najczęściej on premise) oparte na Spring Cloud:
 
-- Service Registry, np. Eureka - przy większej liczbie mikroserwisów można wykorzystać rejestr usług, 
+- Service Registry, np. Netflix Eureka - przy większej liczbie mikroserwisów można wykorzystać rejestr usług, 
 do którego każda instancja serwisu sama się rejestruje oraz ułatwiona jest komunikacja (tylko po nazwie usługi). 
 - Spring Cloud Config - konfigurację aplikacji można przenieść do zewnętrznego repozytorium, np. Git. 
 Ułatwia to zarządzanie konfiguracją wielu serwisów z jednego miejsca i osobno dla różnych środowisk: tst, uat, preprod, prod.
